@@ -1,15 +1,20 @@
 const calculator = {
   getInfectionsByRequestedTime(currentlyInfected, days) {
-    const power = Math.floor(days / 3);
+    const power = Math.trunc(days / 3);
     const powerValue = 2 ** power;
-    return power * powerValue;
+    const results = currentlyInfected * powerValue;
+    return results;
   },
   getAvailableHospitalBeds(availableBeds, patients) {
-    const remainingBeds = Math.floor(availableBeds / 0.35);
+    const remainingBeds = Math.trunc(availableBeds * 0.35);
+    let available = 0;
     if (remainingBeds > patients) {
-      return remainingBeds;
+      available = remainingBeds;
     }
-    return (remainingBeds - patients);
+    if (remainingBeds < patients) {
+      available = remainingBeds - patients;
+    }
+    return Math.trunc(available);
   }
 };
 

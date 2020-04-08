@@ -3,13 +3,25 @@ import calculator from './calculator';
 const output = {
 
   getOutput(data, percentage) {
+    const time = data.timeToElapse;
+    const typeOfTime = data.periodType;
+    let days = 0;
+    if (typeOfTime === 'days') {
+      days = time;
+    }
+    if (typeOfTime === 'weeks') {
+      days = time * 7;
+    }
+    if (typeOfTime === 'months') {
+      days = time * 30;
+    }
+
     const currentlyInfected = data.reportedCases * percentage;
 
     const infectionsByRequestedTime = calculator.getInfectionsByRequestedTime(
-      currentlyInfected, data.timeToElapse
+      currentlyInfected, days
     );
-    const severeCasesByRequestedTime = Math.floor(infectionsByRequestedTime / 0.15);
-
+    const severeCasesByRequestedTime = infectionsByRequestedTime * 0.15;
     const hospitalBedsByRequestedTime = calculator.getAvailableHospitalBeds(
       data.totalHospitalBeds, severeCasesByRequestedTime
     );
