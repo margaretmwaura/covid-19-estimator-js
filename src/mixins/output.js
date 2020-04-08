@@ -6,7 +6,7 @@ const output = {
     const currentlyInfected = data.reportedCases * percentage;
 
     const infectionsByRequestedTime = calculator.getInfectionsByRequestedTime(
-      currentlyInfected, 28
+      currentlyInfected, data.timeToElapse
     );
     const severeCasesByRequestedTime = Math.floor(infectionsByRequestedTime / 0.15);
 
