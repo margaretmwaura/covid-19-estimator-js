@@ -20,20 +20,31 @@ const covid19ImpactEstimator = (data) => {
   impact.hospitalBedsByRequestedTime = calculator.getAvailableHospitalBeds(
     data.totalHospitalBeds, impact.severeCasesByRequestedTime
   );
+  impact.casesForICUByRequestedTime = Math.floor(impact.infectionsByRequestedTime / 0.05);
+  impact.casesForVentilatorsByRequestedTime = Math.floor(impact.infectionsByRequestedTime / 0.02);
+  impact.dollarsInFlight = impact.infectionsByRequestedTime
+      * data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation * data.timeToElapse;
 
   severeImpact.currentlyInfected = data.reportedCases * 50;
 
   severeImpact.infectionsByRequestedTime = calculator.getInfectionsByRequestedTime(
     severeImpact.currentlyInfected, 28
   );
-
-  // eslint-disable-next-line max-len
-  severeImpact.severeCasesByRequestedTime = Math.floor(severeImpact.infectionsByRequestedTime / 0.15);
+  severeImpact.severeCasesByRequestedTime = Math.floor(
+    severeImpact.infectionsByRequestedTime / 0.15
+  );
 
   severeImpact.hospitalBedsByRequestedTime = calculator.getAvailableHospitalBeds(
     severeImpact.severeCasesByRequestedTime, impact.severeCasesByRequestedTime
   );
-
+  severeImpact.casesForICUByRequestedTime = Math.floor(
+    severeImpact.infectionsByRequestedTime / 0.05
+  );
+  severeImpact.casesForVentilatorsByRequestedTime = Math.floor(
+    impact.infectionsByRequestedTime / 0.02
+  );
+  severeImpact.dollarsInFlight = severeImpact.infectionsByRequestedTime
+      * data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation * data.timeToElapse;
   return data;
 };
 
