@@ -1,3 +1,5 @@
+// import calculator from './mixins/calculator';
+// A month has 30 days
 const covid19ImpactEstimator = (data) => {
   const impact = {
     currentlyInfected: 0,
@@ -11,7 +13,7 @@ const covid19ImpactEstimator = (data) => {
   impact.currentlyInfected = data.reportedCases * 10;
   impact.infectionsByRequestedTime = data.reportedCases * 50;
 
-  severeImpact.currentlyInfected = data.reportedCases * 10;
+  severeImpact.currentlyInfected = data.reportedCases * 50;
   severeImpact.infectionsByRequestedTime = data.reportedCases * 50;
 
   return data;
